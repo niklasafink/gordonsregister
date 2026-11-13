@@ -1,0 +1,474 @@
+:root {
+  --excel: #217346;
+  --excel-dark: #185c37;
+  --ink: #242424;
+  --muted: #666;
+  --line: #d9d9d9;
+  --panel: #f7f7f7;
+  --white: #fff;
+  --danger: #b3261e;
+  --ok: #107c10;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background: #ededed;
+  color: var(--ink);
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+.hidden {
+  display: none;
+}
+
+main {
+  min-width: 300px;
+  padding: 14px;
+}
+
+.pane-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+.company-title {
+  margin-top: 2px;
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.pane-head-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.credits {
+  text-align: right;
+  font-size: 11px;
+  line-height: 1.35;
+  color: var(--muted);
+}
+
+.credits b {
+  color: var(--excel-dark);
+  font-weight: 600;
+}
+
+h1,
+h2 {
+  margin: 0;
+  font-weight: 200;
+  letter-spacing: -0.01em;
+}
+
+h1 {
+  color: var(--excel-dark);
+  font-size: 26px;
+}
+
+h2 {
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.health-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #a6a6a6;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.04);
+}
+
+.health-dot.ok {
+  background: var(--ok);
+}
+
+.health-dot.err {
+  background: var(--danger);
+}
+
+.feature-panel,
+.block {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.block:last-of-type {
+  border-bottom: none;
+}
+
+.block-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.link-btn {
+  width: auto;
+  height: auto;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--excel);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.link-btn:hover {
+  color: var(--excel-dark);
+  text-decoration: underline;
+}
+
+.company-list {
+  margin: 8px 0;
+  max-height: 180px;
+  overflow: auto;
+}
+
+.company-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 2px;
+  padding: 5px 6px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--ink);
+}
+
+.company-item input[type="checkbox"] {
+  width: 15px;
+  height: 15px;
+  flex: 0 0 auto;
+}
+
+.company-item span {
+  flex: 1 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.remove-btn {
+  width: 22px;
+  height: 22px;
+  flex: 0 0 auto;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1;
+}
+
+.remove-btn:hover {
+  color: var(--danger);
+}
+
+.muted-line {
+  margin: 6px 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.detect-cost {
+  margin: 8px 0 0;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: #E2F0D9;
+  color: #185c37;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.detect-cost.hidden {
+  display: none;
+}
+
+.add-row {
+  display: grid;
+  grid-template-columns: 1fr 36px;
+  gap: 8px;
+}
+
+.help-box {
+  padding: 10px 12px;
+  background: var(--white);
+  border-left: 3px solid var(--excel);
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.help-box b {
+  color: var(--ink);
+}
+
+.help-box ol {
+  margin: 6px 0 0;
+  padding-left: 18px;
+}
+
+.help-box li {
+  margin-bottom: 3px;
+}
+
+.check {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 10px;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--ink);
+}
+
+.check input[type="checkbox"] {
+  width: 15px;
+  height: 15px;
+  flex: 0 0 auto;
+  margin-top: 1px;
+}
+
+.options-target {
+  margin-top: 16px;
+}
+
+.mapping-list {
+  margin: 8px 0;
+}
+
+.mapping-row {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.mapping-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.mapping-row select {
+  height: 30px;
+}
+
+.field-inline {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.proxy-block .field-inline {
+  grid-template-columns: 1fr 72px;
+  align-items: end;
+}
+
+.block > .field + .field,
+.block > .field-inline + .field {
+  margin-top: 10px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+input,
+select {
+  width: 100%;
+  height: 32px;
+  padding: 5px 8px;
+  border: 1px solid #c8c8c8;
+  border-radius: 2px;
+  background: var(--white);
+  color: var(--ink);
+  font: inherit;
+}
+
+input:focus,
+select:focus {
+  outline: 2px solid rgba(33, 115, 70, 0.22);
+  border-color: var(--excel);
+}
+
+.feature-info {
+  margin-top: 8px;
+  padding: 9px;
+  background: var(--white);
+  border-left: 3px solid var(--excel);
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.feature-info b {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.field + .field {
+  margin-top: 10px;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 72px;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+button {
+  height: 32px;
+  border-radius: 2px;
+  border: 1px solid transparent;
+  font: inherit;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+}
+
+button.primary {
+  background: var(--excel);
+  color: #fff;
+}
+
+button.primary:hover {
+  background: var(--excel-dark);
+}
+
+button.secondary,
+.icon-btn {
+  background: #fff;
+  color: var(--ink);
+  border-color: #c8c8c8;
+}
+
+button.secondary:hover,
+.icon-btn:hover {
+  background: #f2f2f2;
+}
+
+details.proxy-block > summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--excel-dark);
+  list-style: revert;
+}
+
+details.proxy-block > summary::-webkit-details-marker {
+  display: revert;
+}
+
+.year-quick {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.year-chip {
+  height: 28px;
+  padding: 0 12px;
+  border-radius: 14px;
+  background: #fff;
+  color: var(--ink);
+  border: 1px solid #c8c8c8;
+  font-size: 12px;
+}
+
+.year-chip:hover {
+  background: #f2f2f2;
+}
+
+.year-chip.active {
+  background: var(--excel);
+  color: #fff;
+  border-color: var(--excel);
+}
+
+.status {
+  min-height: 18px;
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.status.ok {
+  color: var(--ok);
+}
+
+.status.err {
+  color: var(--danger);
+}
+
+.result-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.result-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.icon-btn {
+  min-width: 48px;
+  height: 28px;
+  padding: 0 8px;
+  font-size: 11px;
+}
+
+.api-result {
+  min-height: 260px;
+  max-height: calc(100vh - 310px);
+  margin: 0;
+  padding: 10px;
+  overflow: auto;
+  background: #1f1f1f;
+  color: #dcdcdc;
+  border: 1px solid #111;
+  border-radius: 2px;
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 11px;
+  line-height: 1.5;
+  white-space: pre;
+}

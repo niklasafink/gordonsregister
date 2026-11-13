@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gordon – Admin</title>
+    <style>
+      :root {
+        --bg: #f4f6f8; --card: #fff; --ink: #1f2933; --muted: #6b7280;
+        --line: #e6e8eb; --brand: #217346; --brand-dark: #185c37; --danger: #dc2626;
+        --shadow: 0 1px 3px rgba(16,24,40,.08), 0 1px 2px rgba(16,24,40,.04);
+        --radius: 10px;
+      }
+      * { box-sizing: border-box; }
+      body { font-family: -apple-system, "Segoe UI", Roboto, sans-serif; color: var(--ink); margin: 0; background: var(--bg); }
+      .brand { font-size: 17px; font-weight: 700; letter-spacing: -.01em; }
+      .brand span { color: var(--brand); font-weight: 600; }
+      .hidden { display: none !important; }
+
+      /* Buttons */
+      .btn { height: 34px; padding: 0 14px; border-radius: 8px; border: 1px solid var(--line);
+        background: #fff; color: var(--ink); font: inherit; font-weight: 500; cursor: pointer;
+        transition: background .12s, border-color .12s; white-space: nowrap; }
+      .btn:hover { background: #f3f4f6; }
+      .btn.primary { background: var(--brand); border-color: var(--brand); color: #fff; }
+      .btn.primary:hover { background: var(--brand-dark); }
+      .btn.danger { color: var(--danger); border-color: #f1cfcf; }
+      .btn.danger:hover { background: #fcecec; }
+      .btn.ghost { border-color: transparent; background: transparent; color: var(--muted); }
+      .btn.ghost:hover { background: rgba(0,0,0,.05); color: var(--ink); }
+      .btn.sm { height: 28px; padding: 0 10px; font-size: 12.5px; border-radius: 7px; }
+      .btn.block { width: 100%; }
+
+      /* Login */
+      .auth-screen { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; }
+      .auth-card { background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+        box-shadow: var(--shadow); padding: 28px; width: 100%; max-width: 360px; }
+      .auth-card .brand { font-size: 22px; margin-bottom: 4px; }
+      .auth-sub { color: var(--muted); font-size: 13px; margin: 0 0 20px; }
+      .auth-card label { display: block; font-size: 12.5px; color: var(--muted); margin: 14px 0 6px; }
+      .err { color: var(--danger); font-size: 13px; min-height: 18px; margin: 12px 0 0; }
+
+      /* App shell */
+      .topbar { position: sticky; top: 0; z-index: 10; background: rgba(255,255,255,.85);
+        backdrop-filter: blur(8px); border-bottom: 1px solid var(--line);
+        display: flex; align-items: center; justify-content: space-between; padding: 12px 24px; }
+      main { max-width: 980px; margin: 0 auto; padding: 24px; }
+      .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+        box-shadow: var(--shadow); padding: 20px; margin-bottom: 18px; }
+      .card h3 { margin: 0 0 4px; font-size: 15px; }
+      .card .hint { color: var(--muted); font-size: 13px; margin: 0 0 16px; }
+
+      input, select { height: 34px; padding: 0 11px; border: 1px solid #d6d9dd; border-radius: 8px;
+        width: 100%; font: inherit; background: #fff; }
+      input:focus, select:focus { outline: none; border-color: var(--brand); box-shadow: 0 0 0 3px rgba(33,115,70,.12); }
+      label.field { display: block; font-size: 12.5px; color: var(--muted); margin-bottom: 6px; }
+
+      .row { display: flex; gap: 12px; align-items: flex-end; flex-wrap: wrap; }
+      .row > div { flex: 1; min-width: 150px; }
+
+      table { width: 100%; border-collapse: collapse; font-size: 14px; }
+      th, td { text-align: left; padding: 11px 8px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+      th { font-size: 11.5px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .03em; }
+      tbody tr:hover { background: #fafbfc; }
+      td .sub { color: var(--muted); font-size: 11.5px; }
+
+      .pill { display: inline-block; font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 20px; background: #eef0f2; color: var(--muted); }
+      .pill.on { background: #dcf5e3; color: var(--brand-dark); }
+      .pill.off { background: #fde0e0; color: var(--danger); }
+      .actions { display: flex; flex-wrap: wrap; gap: 6px; }
+      .token-box { background: #f0faf3; border: 1px solid #bfe6cc; padding: 12px 14px; border-radius: 8px;
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12.5px; word-break: break-all; margin-top: 14px; }
+      .muted { color: var(--muted); font-size: 12.5px; }
+      .num { width: 92px; }
+    </style>
+  </head>
+  <body>
+    <!-- Login -->
+    <div id="authScreen" class="auth-screen">
+      <form class="auth-card" id="authForm">
+        <div class="brand">Gordon <span>Admin</span></div>
+        <p class="auth-sub">Bitte mit deinen Zugangsdaten anmelden.</p>
+        <label for="username">Benutzername</label>
+        <input id="username" type="text" autocomplete="username" autofocus />
+        <label for="password">Passwort</label>
+        <input id="password" type="password" autocomplete="current-password" />
+        <button class="btn primary block" id="loginBtn" type="submit" style="margin-top:20px">Anmelden</button>
+        <p class="err" id="authStatus"></p>
+      </form>
+    </div>
+
+    <!-- App -->
+    <div id="app" class="hidden">
+      <header class="topbar">
+        <div class="brand">Gordon <span>Admin</span></div>
+        <button class="btn ghost" id="logoutBtn" type="button">Abmelden</button>
+      </header>
+      <main>
+        <div class="card">
+          <h3>Mandanten (Kunden)</h3>
+          <p class="hint">Eigener handelsregister.ai-Key pro Mandant – oder leer lassen für den geteilten Standard-Key.</p>
+          <div class="row">
+            <div><label class="field" for="newTenantName">Name</label><input id="newTenantName" type="text" placeholder="z. B. Muster GmbH" /></div>
+            <div><label class="field" for="newTenantKey">handelsregister.ai-Key (optional)</label><input id="newTenantKey" type="password" placeholder="leer = geteilter Standard-Key" /></div>
+            <button class="btn primary" id="createTenantBtn" type="button">Anlegen</button>
+          </div>
+          <table style="margin-top:16px">
+            <thead><tr><th>Mandant</th><th>API-Key</th><th>Verbrauch</th><th>Aktionen</th></tr></thead>
+            <tbody id="tenantRows"></tbody>
+          </table>
+        </div>
+
+        <div class="card">
+          <h3>Neuen Nutzer anlegen</h3>
+          <div class="row">
+            <div><label class="field" for="newName">Name</label><input id="newName" type="text" placeholder="z. B. Max Mustermann" /></div>
+            <div><label class="field" for="newTenant">Mandant</label><select id="newTenant"></select></div>
+            <div style="flex:0 0 130px"><label class="field" for="newLimit">Credit-Limit</label><input id="newLimit" type="number" min="0" value="1000" /></div>
+            <button class="btn primary" id="createBtn" type="button">Anlegen</button>
+          </div>
+          <div id="newToken" class="token-box hidden"></div>
+        </div>
+
+        <div class="card">
+          <h3>Nutzer</h3>
+          <table>
+            <thead>
+              <tr><th>Name</th><th>Mandant</th><th>Verbrauch</th><th>Limit</th><th>Status</th><th>Aktionen</th></tr>
+            </thead>
+            <tbody id="userRows"></tbody>
+          </table>
+          <p class="muted" id="listStatus"></p>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      const $ = (id) => document.getElementById(id);
+      let token = sessionStorage.getItem("gordon.adminToken") || "";
+
+      function headers() {
+        return { "x-admin-token": token, "Content-Type": "application/json" };
+      }
+
+      async function api(path, options = {}) {
+        let res;
+        try {
+          res = await fetch(`/api/admin${path}`, { ...options, headers: { ...headers(), ...(options.headers || {}) } });
+        } catch (e) {
+          throw new Error("Netzwerkfehler: " + (e && e.message ? e.message : e));
+        }
+        const body = await res.json().catch(() => ({}));
+        if (!res.ok) throw new Error(body.error || `Fehler ${res.status}`);
+        return body;
+      }
+
+      let tenants = [];
+      let tenantsById = {};
+
+      // ---- Auth -----------------------------------------------------------
+      async function login() {
+        const username = $("username").value.trim();
+        const password = $("password").value;
+        $("authStatus").textContent = "Anmeldung läuft …";
+        try {
+          const { token: t } = await api("/login", { method: "POST", body: JSON.stringify({ username, password }) });
+          token = t;
+          sessionStorage.setItem("gordon.adminToken", token);
+          enterApp();
+        } catch (err) {
+          $("authStatus").textContent = err.message || "Unbekannter Fehler";
+        }
+      }
+
+      function enterApp() {
+        $("authScreen").classList.add("hidden");
+        $("app").classList.remove("hidden");
+        refreshAll();
+      }
+
+      function logout() {
+        sessionStorage.removeItem("gordon.adminToken");
+        location.reload();
+      }
+
+      async function tryResume() {
+        if (!token) return;
+        try { await api("/tenants"); enterApp(); }
+        catch { sessionStorage.removeItem("gordon.adminToken"); token = ""; }
+      }
+
+      function refreshAll() {
+        return renderTenants().then(render);
+      }
+
+      // ---- Mandanten ------------------------------------------------------
+      function renderTenants() {
+        return api("/tenants").then(({ tenants: list }) => {
+          tenants = list;
+          tenantsById = Object.fromEntries(list.map((t) => [t.id, t]));
+          $("tenantRows").innerHTML = list
+            .map(
+              (t) => `
+            <tr data-id="${t.id}">
+              <td>${escapeHtml(t.name)}<br><span class="sub">${t.id}</span></td>
+              <td>${t.hasOwnKey ? "eigener Key <span class='sub'>" + escapeHtml(t.apiKeyHint) + "</span>" : '<span class="sub">Standard-Key</span>'}
+                  <input type="password" class="tenantKeyInput" placeholder="Key setzen/ändern" style="margin-top:6px" /></td>
+              <td>${t.creditsUsed}</td>
+              <td><div class="actions">
+                <button class="btn sm tSaveKey" type="button">Key speichern</button>
+                <button class="btn sm tReset" type="button">Verbrauch 0</button>
+                ${t.id === "default" ? "" : '<button class="btn sm danger tDel" type="button">Löschen</button>'}
+              </div></td>
+            </tr>`
+            )
+            .join("");
+          bindTenantActions();
+          populateTenantSelect();
+        });
+      }
+
+      function bindTenantActions() {
+        document.querySelectorAll("#tenantRows tr").forEach((tr) => {
+          const id = tr.dataset.id;
+          const t = tenantsById[id];
+          tr.querySelector(".tSaveKey").onclick = () => {
+            const apiKey = tr.querySelector(".tenantKeyInput").value;
+            act(() => api(`/tenants/${id}`, { method: "PATCH", body: JSON.stringify({ apiKey }) }));
+          };
+          tr.querySelector(".tReset").onclick = () => act(() => api(`/tenants/${id}/reset`, { method: "POST" }));
+          const del = tr.querySelector(".tDel");
+          if (del) del.onclick = () => { if (confirm(`Mandant "${t.name}" wirklich löschen?`)) act(() => api(`/tenants/${id}`, { method: "DELETE" })); };
+        });
+      }
+
+      function populateTenantSelect() {
+        $("newTenant").innerHTML = tenants.map((t) => `<option value="${t.id}">${escapeHtml(t.name)}</option>`).join("");
+      }
+
+      function createTenant() {
+        const name = $("newTenantName").value.trim();
+        const apiKey = $("newTenantKey").value;
+        if (!name) return;
+        api("/tenants", { method: "POST", body: JSON.stringify({ name, apiKey }) })
+          .then(() => { $("newTenantName").value = ""; $("newTenantKey").value = ""; refreshAll(); })
+          .catch((err) => alert(err.message));
+      }
+
+      // ---- Nutzer ---------------------------------------------------------
+      function statusPill(u) {
+        if (u.disabled) return '<span class="pill off">gesperrt</span>';
+        if (u.unlimited) return '<span class="pill on">unbegrenzt</span>';
+        return '<span class="pill">aktiv</span>';
+      }
+
+      function render() {
+        api("/users")
+          .then(({ users }) => {
+            $("userRows").innerHTML = users
+              .map(
+                (u) => `
+              <tr data-id="${u.id}">
+                <td>${escapeHtml(u.name)}<br><span class="sub">${u.id}</span></td>
+                <td>${escapeHtml((tenantsById[u.tenantId] && tenantsById[u.tenantId].name) || u.tenantId || "")}</td>
+                <td>${u.creditsUsed}</td>
+                <td><input type="number" min="0" value="${u.creditLimit}" class="num limitInput" /></td>
+                <td>${statusPill(u)}</td>
+                <td><div class="actions">
+                  <button class="btn sm primary saveBtn" type="button">Limit speichern</button>
+                  <button class="btn sm copyTokenBtn" type="button">Neuer Token</button>
+                  <button class="btn sm unlimitedBtn" type="button">${u.unlimited ? "Limit aktivieren" : "Limit aufheben"}</button>
+                  <button class="btn sm disableBtn" type="button">${u.disabled ? "Entsperren" : "Sperren"}</button>
+                  <button class="btn sm resetBtn" type="button">Verbrauch 0</button>
+                  <button class="btn sm danger delBtn" type="button">Löschen</button>
+                </div></td>
+              </tr>`
+              )
+              .join("");
+            bindRowActions(users);
+          })
+          .catch((err) => ($("listStatus").textContent = err.message));
+      }
+
+      function bindRowActions(users) {
+        const byId = Object.fromEntries(users.map((u) => [u.id, u]));
+        document.querySelectorAll("#userRows tr").forEach((tr) => {
+          const id = tr.dataset.id;
+          const u = byId[id];
+          tr.querySelector(".copyTokenBtn").onclick = () => {
+            // Der Token wird serverseitig nur als Hash gespeichert und kann nicht
+            // erneut ausgelesen werden. "Neuer Token" erzeugt daher einen frischen
+            // Token (der alte wird ungültig) und zeigt ihn einmalig an.
+            if (!confirm(`Neuen Token für "${u.name}" erzeugen?\n\nDer bisherige Token wird damit ungültig.`)) return;
+            api(`/users/${id}/rotate-token`, { method: "POST" })
+              .then(({ token: userToken, user }) => {
+                $("newToken").classList.remove("hidden");
+                $("newToken").innerHTML = `<b>Neuer Zugangs-Token für ${escapeHtml(user.name)}</b> (nur jetzt sichtbar – an den Nutzer weitergeben):<br>${escapeHtml(userToken)}`;
+                refreshAll();
+              })
+              .catch((err) => alert(err.message));
+          };
+          tr.querySelector(".saveBtn").onclick = () =>
+            act(() => api(`/users/${id}`, { method: "PATCH", body: JSON.stringify({ creditLimit: Number(tr.querySelector(".limitInput").value) }) }));
+          tr.querySelector(".unlimitedBtn").onclick = () =>
+            act(() => api(`/users/${id}`, { method: "PATCH", body: JSON.stringify({ unlimited: !u.unlimited }) }));
+          tr.querySelector(".disableBtn").onclick = () =>
+            act(() => api(`/users/${id}`, { method: "PATCH", body: JSON.stringify({ disabled: !u.disabled }) }));
+          tr.querySelector(".resetBtn").onclick = () => act(() => api(`/users/${id}/reset`, { method: "POST" }));
+          tr.querySelector(".delBtn").onclick = () => {
+            if (confirm(`Nutzer "${u.name}" wirklich löschen?`)) act(() => api(`/users/${id}`, { method: "DELETE" }));
+          };
+        });
+      }
+
+      function act(fn) {
+        fn().then(refreshAll).catch((err) => alert(err.message));
+      }
+
+      function createUser() {
+        const name = $("newName").value.trim();
+        const creditLimit = Number($("newLimit").value) || 0;
+        const tenantId = $("newTenant").value;
+        if (!name) return;
+        api("/users", { method: "POST", body: JSON.stringify({ name, creditLimit, tenantId }) })
+          .then(({ token: userToken, user }) => {
+            $("newToken").classList.remove("hidden");
+            $("newToken").innerHTML = `<b>Zugangs-Token für ${escapeHtml(user.name)}</b> (nur jetzt sichtbar – an den Nutzer weitergeben):<br>${userToken}`;
+            $("newName").value = "";
+            refreshAll();
+          })
+          .catch((err) => alert(err.message));
+      }
+
+      function escapeHtml(s) {
+        return String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+      }
+
+      // ---- Bindings -------------------------------------------------------
+      $("authForm").addEventListener("submit", (e) => { e.preventDefault(); login(); });
+      $("logoutBtn").onclick = logout;
+      $("createBtn").onclick = createUser;
+      $("createTenantBtn").onclick = createTenant;
+      tryResume();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,37 @@
+{
+  "name": "handelsregister-ai-excel-addin",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Excel Add-in: API-Cockpit fuer handelsregister.ai Features.",
+  "license": "AGPL-3.0-only",
+  "scripts": {
+    "dev-certs": "office-addin-dev-certs install",
+    "start": "webpack serve --mode development",
+    "build": "webpack --mode production",
+    "build:prod": "webpack --mode production",
+    "deploy": "npm run build:prod && wrangler pages deploy dist --project-name gordon",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "validate": "office-addin-manifest validate manifest.xml",
+    "sideload": "office-addin-debugging start manifest.xml",
+    "stop": "office-addin-debugging stop manifest.xml"
+  },
+  "dependencies": {
+    "core-js": "^3.37.0"
+  },
+  "devDependencies": {
+    "@types/office-js": "^1.0.377",
+    "copy-webpack-plugin": "^12.0.2",
+    "html-webpack-plugin": "^5.6.0",
+    "office-addin-debugging": "^6.0.0",
+    "office-addin-dev-certs": "^1.13.0",
+    "office-addin-manifest": "^1.13.0",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.5.0",
+    "vitest": "^4.1.9",
+    "webpack": "^5.92.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.0.4",
+    "wrangler": "^4.104.0"
+  }
+}

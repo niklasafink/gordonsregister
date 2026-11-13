@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<OfficeApp
+  xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
+  xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides"
+  xsi:type="TaskPaneApp">
+
+  <Id>b78e5c2c-f53e-43b4-9f99-d5b462ab5a88</Id>
+  <Version>2.0.1.0</Version>
+  <ProviderName>Gordon</ProviderName>
+  <DefaultLocale>de-DE</DefaultLocale>
+  <DisplayName DefaultValue="Gordon" />
+  <Description DefaultValue="Gordon – Handelsregister- und Unternehmensdaten direkt in Excel." />
+  <IconUrl DefaultValue="https://localhost:3000/assets/icon-32.png" />
+  <HighResolutionIconUrl DefaultValue="https://localhost:3000/assets/icon-80.png" />
+  <SupportUrl DefaultValue="https://handelsregister.ai" />
+
+  <AppDomains>
+    <AppDomain>https://localhost:3000</AppDomain>
+  </AppDomains>
+
+  <Hosts>
+    <Host Name="Workbook" />
+  </Hosts>
+
+  <Requirements>
+    <Sets DefaultMinVersion="1.7">
+      <Set Name="ExcelApi" MinVersion="1.7" />
+    </Sets>
+  </Requirements>
+
+  <DefaultSettings>
+    <SourceLocation DefaultValue="https://localhost:3000/taskpane.html" />
+  </DefaultSettings>
+
+  <Permissions>ReadWriteDocument</Permissions>
+
+  <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">
+    <Hosts>
+      <Host xsi:type="Workbook">
+        <DesktopFormFactor>
+          <GetStarted>
+            <Title resid="GetStarted.Title" />
+            <Description resid="GetStarted.Description" />
+            <LearnMoreUrl resid="GetStarted.LearnMoreUrl" />
+          </GetStarted>
+
+          <FunctionFile resid="Commands.Url" />
+
+          <ExtensionPoint xsi:type="PrimaryCommandSurface">
+            <CustomTab id="GordanV2.Tab">
+              <Group id="GordanV2.Table">
+                <Label resid="Group.Table" />
+                <Icon><bt:Image size="16" resid="Icon.16" /><bt:Image size="32" resid="Icon.32" /><bt:Image size="80" resid="Icon.80" /></Icon>
+                <Control xsi:type="Button" id="GV2.Detect">
+                  <Label resid="Btn.Detect" />
+                  <Supertip><Title resid="Btn.Detect" /><Description resid="Tip.Detect" /></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.16" /><bt:Image size="32" resid="Icon.32" /><bt:Image size="80" resid="Icon.80" /></Icon>
+                  <Action xsi:type="ShowTaskpane"><TaskpaneId>GordanV2.Api</TaskpaneId><SourceLocation resid="Url.Detect" /></Action>
+                </Control>
+              </Group>
+
+              <Group id="GordanV2.Overview">
+                <Label resid="Group.Overview" />
+                <Icon><bt:Image size="16" resid="Icon.16" /><bt:Image size="32" resid="Icon.32" /><bt:Image size="80" resid="Icon.80" /></Icon>
+                <Control xsi:type="Button" id="GV2.Details">
+                  <Label resid="Btn.Details" />
+                  <Supertip><Title resid="Btn.Details" /><Description resid="Tip.Details" /></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.16" /><bt:Image size="32" resid="Icon.32" /><bt:Image size="80" resid="Icon.80" /></Icon>
+                  <Action xsi:type="ShowTaskpane"><TaskpaneId>GordanV2.Api</TaskpaneId><SourceLocation resid="Url.CompanyDetails" /></Action>
+                </Control>
+              </Group>
+
+              <Group id="GordanV2.Finance">
+                <Label resid="Group.Finance" />
+                <Icon>
+                  <bt:Image size="16" resid="Icon.16" />
+                  <bt:Image size="32" resid="Icon.32" />
+                  <bt:Image size="80" resid="Icon.80" />
+                </Icon>
+                <Control xsi:type="Button" id="GV2.F1">
+                  <Label resid="Btn.F1" />
+                  <Supertip><Title resid="Btn.F1" /><Description resid="Tip.F1" /></Supertip>
+                  <Icon><bt:Image size="16" resid="F1.16" /><bt:Image size="32" resid="F1.32" /><bt:Image size="80" resid="F1.80" /></Icon>
+                  <Action xsi:type="ShowTaskpane"><TaskpaneId>GordanV2.Api</TaskpaneId><SourceLocation resid="Url.F1" /></Action>
+                </Control>
+                <Control xsi:type="Button" id="GV2.F2">
+                  <Label resid="Btn.F2" />
+                  <Supertip><Title resid="Btn.F2" /><Description resid="Tip.F2" /></Supertip>
+                  <Icon><bt:Image size="16" resid="F2.16" /><bt:Image size="32" resid="F2.32" /><bt:Image size="80" resid="F2.80" /></Icon>
+                  <Action xsi:type="ShowTaskpane"><TaskpaneId>GordanV2.Api</TaskpaneId><SourceLocation resid="Url.F2" /></Action>
+                </Control>
+                <Control xsi:type="Button" id="GV2.F3">
+                  <Label resid="Btn.F3" />
+                  <Supertip><Title resid="Btn.F3" /><Description resid="Tip.F3" /></Supertip>
+                  <Icon><bt:Image size="16" resid="F3.16" /><bt:Image size="32" resid="F3.32" /><bt:Image size="80" resid="F3.80" /></Icon>
+                  <Action xsi:type="ShowTaskpane"><TaskpaneId>GordanV2.Api</TaskpaneId><SourceLocation resid="Url.F3" /></Action>
+                </Control>
+              </Group>
+
+              <Group id="GordanV2.People">
+                <Label resid="Group.People" />
+                <Icon><bt:Image size="16" resid="F6.16" /><bt:Image size="32" resid="F6.32" /><bt:Image size="80" resid="F6.80" /></Icon>
+                <Control xsi:type="Button" id="GV2.F6">
+                  <Label resid="Btn.F6" />
+                  <Supertip><Title resid="Btn.F6" /><Description resid="Tip.F6" /></Supertip>
+                  <Icon><bt:Image size="16" resid="F6.16" /><bt:Image size="32" resid="F6.32" /><bt:Image size="80" resid="F6.80" /></Icon>
+                  <Action xsi:type="ShowTaskpane"><TaskpaneId>GordanV2.Api</TaskpaneId><SourceLocation resid="Url.F6" /></Action>
+                </Control>
+              </Group>
+
+              <Group id="GordanV2.Publications">
+                <Label resid="Group.Publications" />
+                <Icon><bt:Image size="16" resid="F7.16" /><bt:Image size="32" resid="F7.32" /><bt:Image size="80" resid="F7.80" /></Icon>
+                <Control xsi:type="Button" id="GV2.F7">
+                  <Label resid="Btn.F7" />
+                  <Supertip><Title resid="Btn.F7" /><Description resid="Tip.F7" /></Supertip>
+                  <Icon><bt:Image size="16" resid="F7.16" /><bt:Image size="32" resid="F7.32" /><bt:Image size="80" resid="F7.80" /></Icon>
+                  <Action xsi:type="ShowTaskpane"><TaskpaneId>GordanV2.Api</TaskpaneId><SourceLocation resid="Url.F7" /></Action>
+                </Control>
+                <Control xsi:type="Button" id="GV2.F8">
+                  <Label resid="Btn.F8" />
+                  <Supertip><Title resid="Btn.F8" /><Description resid="Tip.F8" /></Supertip>
+                  <Icon><bt:Image size="16" resid="F8.16" /><bt:Image size="32" resid="F8.32" /><bt:Image size="80" resid="F8.80" /></Icon>
+                  <Action xsi:type="ShowTaskpane"><TaskpaneId>GordanV2.Api</TaskpaneId><SourceLocation resid="Url.F8" /></Action>
+                </Control>
+                <Control xsi:type="Button" id="GV2.F9">
+                  <Label resid="Btn.F9" />
+                  <Supertip><Title resid="Btn.F9" /><Description resid="Tip.F9" /></Supertip>
+                  <Icon><bt:Image size="16" resid="F9.16" /><bt:Image size="32" resid="F9.32" /><bt:Image size="80" resid="F9.80" /></Icon>
+                  <Action xsi:type="ShowTaskpane"><TaskpaneId>GordanV2.Api</TaskpaneId><SourceLocation resid="Url.F9" /></Action>
+                </Control>
+              </Group>
+
+              <Group id="GordanV2.Ownership">
+                <Label resid="Group.Ownership" />
+                <Icon><bt:Image size="16" resid="F10.16" /><bt:Image size="32" resid="F10.32" /><bt:Image size="80" resid="F10.80" /></Icon>
+                <Control xsi:type="Button" id="GV2.F10">
+                  <Label resid="Btn.F10" />
+                  <Supertip><Title resid="Btn.F10" /><Description resid="Tip.F10" /></Supertip>
+                  <Icon><bt:Image size="16" resid="F10.16" /><bt:Image size="32" resid="F10.32" /><bt:Image size="80" resid="F10.80" /></Icon>
+                  <Action xsi:type="ShowTaskpane"><TaskpaneId>GordanV2.Api</TaskpaneId><SourceLocation resid="Url.F10" /></Action>
+                </Control>
+                <Control xsi:type="Button" id="GV2.F11">
+                  <Label resid="Btn.F11" />
+                  <Supertip><Title resid="Btn.F11" /><Description resid="Tip.F11" /></Supertip>
+                  <Icon><bt:Image size="16" resid="F11.16" /><bt:Image size="32" resid="F11.32" /><bt:Image size="80" resid="F11.80" /></Icon>
+                  <Action xsi:type="ShowTaskpane"><TaskpaneId>GordanV2.Api</TaskpaneId><SourceLocation resid="Url.F11" /></Action>
+                </Control>
+                <Control xsi:type="Button" id="GV2.F12">
+                  <Label resid="Btn.F12" />
+                  <Supertip><Title resid="Btn.F12" /><Description resid="Tip.F12" /></Supertip>
+                  <Icon><bt:Image size="16" resid="F12.16" /><bt:Image size="32" resid="F12.32" /><bt:Image size="80" resid="F12.80" /></Icon>
+                  <Action xsi:type="ShowTaskpane"><TaskpaneId>GordanV2.Api</TaskpaneId><SourceLocation resid="Url.F12" /></Action>
+                </Control>
+              </Group>
+
+              <Group id="GordanV2.AI">
+                <Label resid="Group.AI" />
+                <Icon><bt:Image size="16" resid="F13.16" /><bt:Image size="32" resid="F13.32" /><bt:Image size="80" resid="F13.80" /></Icon>
+                <Control xsi:type="Button" id="GV2.F13">
+                  <Label resid="Btn.F13" />
+                  <Supertip><Title resid="Btn.F13" /><Description resid="Tip.F13" /></Supertip>
+                  <Icon><bt:Image size="16" resid="F13.16" /><bt:Image size="32" resid="F13.32" /><bt:Image size="80" resid="F13.80" /></Icon>
+                  <Action xsi:type="ShowTaskpane"><TaskpaneId>GordanV2.Api</TaskpaneId><SourceLocation resid="Url.F13" /></Action>
+                </Control>
+              </Group>
+
+              <Group id="GordanV2.Contact">
+                <Label resid="Group.Contact" />
+                <Icon><bt:Image size="16" resid="Email.16" /><bt:Image size="32" resid="Email.32" /><bt:Image size="80" resid="Email.80" /></Icon>
+                <Control xsi:type="Button" id="GV2.Email">
+                  <Label resid="Btn.Email" />
+                  <Supertip><Title resid="Btn.Email" /><Description resid="Tip.Email" /></Supertip>
+                  <Icon><bt:Image size="16" resid="Email.16" /><bt:Image size="32" resid="Email.32" /><bt:Image size="80" resid="Email.80" /></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>sendEmail</FunctionName></Action>
+                </Control>
+              </Group>
+              <Label resid="Tab.Label" />
+            </CustomTab>
+          </ExtensionPoint>
+        </DesktopFormFactor>
+      </Host>
+    </Hosts>
+
+    <Resources>
+      <bt:Images>
+        <bt:Image id="Icon.16" DefaultValue="https://localhost:3000/assets/icon-16.png" />
+        <bt:Image id="Icon.32" DefaultValue="https://localhost:3000/assets/icon-32.png" />
+        <bt:Image id="Icon.80" DefaultValue="https://localhost:3000/assets/icon-80.png" />
+        <bt:Image id="Email.16" DefaultValue="https://localhost:3000/assets/email-16.png" />
+        <bt:Image id="Email.32" DefaultValue="https://localhost:3000/assets/email-32.png" />
+        <bt:Image id="Email.80" DefaultValue="https://localhost:3000/assets/email-80.png" />
+        <bt:Image id="F1.16" DefaultValue="https://localhost:3000/assets/feature-financial_kpi-16.png" />
+        <bt:Image id="F1.32" DefaultValue="https://localhost:3000/assets/feature-financial_kpi-32.png" />
+        <bt:Image id="F1.80" DefaultValue="https://localhost:3000/assets/feature-financial_kpi-80.png" />
+        <bt:Image id="F2.16" DefaultValue="https://localhost:3000/assets/feature-balance_sheet_accounts-16.png" />
+        <bt:Image id="F2.32" DefaultValue="https://localhost:3000/assets/feature-balance_sheet_accounts-32.png" />
+        <bt:Image id="F2.80" DefaultValue="https://localhost:3000/assets/feature-balance_sheet_accounts-80.png" />
+        <bt:Image id="F3.16" DefaultValue="https://localhost:3000/assets/feature-profit_and_loss_account-16.png" />
+        <bt:Image id="F3.32" DefaultValue="https://localhost:3000/assets/feature-profit_and_loss_account-32.png" />
+        <bt:Image id="F3.80" DefaultValue="https://localhost:3000/assets/feature-profit_and_loss_account-80.png" />
+        <bt:Image id="F6.16" DefaultValue="https://localhost:3000/assets/feature-related_persons-16.png" />
+        <bt:Image id="F6.32" DefaultValue="https://localhost:3000/assets/feature-related_persons-32.png" />
+        <bt:Image id="F6.80" DefaultValue="https://localhost:3000/assets/feature-related_persons-80.png" />
+        <bt:Image id="F7.16" DefaultValue="https://localhost:3000/assets/feature-publications-16.png" />
+        <bt:Image id="F7.32" DefaultValue="https://localhost:3000/assets/feature-publications-32.png" />
+        <bt:Image id="F7.80" DefaultValue="https://localhost:3000/assets/feature-publications-80.png" />
+        <bt:Image id="F8.16" DefaultValue="https://localhost:3000/assets/feature-news-16.png" />
+        <bt:Image id="F8.32" DefaultValue="https://localhost:3000/assets/feature-news-32.png" />
+        <bt:Image id="F8.80" DefaultValue="https://localhost:3000/assets/feature-news-80.png" />
+        <bt:Image id="F9.16" DefaultValue="https://localhost:3000/assets/feature-insolvency_publications-16.png" />
+        <bt:Image id="F9.32" DefaultValue="https://localhost:3000/assets/feature-insolvency_publications-32.png" />
+        <bt:Image id="F9.80" DefaultValue="https://localhost:3000/assets/feature-insolvency_publications-80.png" />
+        <bt:Image id="F10.16" DefaultValue="https://localhost:3000/assets/feature-shareholders-16.png" />
+        <bt:Image id="F10.32" DefaultValue="https://localhost:3000/assets/feature-shareholders-32.png" />
+        <bt:Image id="F10.80" DefaultValue="https://localhost:3000/assets/feature-shareholders-80.png" />
+        <bt:Image id="F11.16" DefaultValue="https://localhost:3000/assets/feature-ubos-16.png" />
+        <bt:Image id="F11.32" DefaultValue="https://localhost:3000/assets/feature-ubos-32.png" />
+        <bt:Image id="F11.80" DefaultValue="https://localhost:3000/assets/feature-ubos-80.png" />
+        <bt:Image id="F12.16" DefaultValue="https://localhost:3000/assets/feature-shareholdings-16.png" />
+        <bt:Image id="F12.32" DefaultValue="https://localhost:3000/assets/feature-shareholdings-32.png" />
+        <bt:Image id="F12.80" DefaultValue="https://localhost:3000/assets/feature-shareholdings-80.png" />
+        <bt:Image id="F13.16" DefaultValue="https://localhost:3000/assets/feature-website_content-16.png" />
+        <bt:Image id="F13.32" DefaultValue="https://localhost:3000/assets/feature-website_content-32.png" />
+        <bt:Image id="F13.80" DefaultValue="https://localhost:3000/assets/feature-website_content-80.png" />
+      </bt:Images>
+      <bt:Urls>
+        <bt:Url id="Commands.Url" DefaultValue="https://localhost:3000/commands.html" />
+        <bt:Url id="Taskpane.Url" DefaultValue="https://localhost:3000/taskpane.html" />
+        <bt:Url id="Url.Detect" DefaultValue="https://localhost:3000/taskpane.html?mode=detect" />
+        <bt:Url id="Url.CompanyDetails" DefaultValue="https://localhost:3000/taskpane.html?feature=company_details" />
+        <bt:Url id="Url.F1" DefaultValue="https://localhost:3000/taskpane.html?feature=financial_kpi" />
+        <bt:Url id="Url.F2" DefaultValue="https://localhost:3000/taskpane.html?feature=balance_sheet_accounts" />
+        <bt:Url id="Url.F3" DefaultValue="https://localhost:3000/taskpane.html?feature=profit_and_loss_account" />
+        <bt:Url id="Url.F6" DefaultValue="https://localhost:3000/taskpane.html?feature=related_persons" />
+        <bt:Url id="Url.F7" DefaultValue="https://localhost:3000/taskpane.html?feature=publications" />
+        <bt:Url id="Url.F8" DefaultValue="https://localhost:3000/taskpane.html?feature=news" />
+        <bt:Url id="Url.F9" DefaultValue="https://localhost:3000/taskpane.html?feature=insolvency_publications" />
+        <bt:Url id="Url.F10" DefaultValue="https://localhost:3000/taskpane.html?feature=shareholders" />
+        <bt:Url id="Url.F11" DefaultValue="https://localhost:3000/taskpane.html?feature=ubos" />
+        <bt:Url id="Url.F12" DefaultValue="https://localhost:3000/taskpane.html?feature=shareholdings" />
+        <bt:Url id="Url.F13" DefaultValue="https://localhost:3000/taskpane.html?feature=website_content" />
+        <bt:Url id="GetStarted.LearnMoreUrl" DefaultValue="https://handelsregister.ai" />
+      </bt:Urls>
+      <bt:ShortStrings>
+        <bt:String id="Tab.Label" DefaultValue="Gordon" />
+        <bt:String id="Group.Table" DefaultValue="Tabelle" />
+        <bt:String id="Btn.Detect" DefaultValue="Erkennen" />
+        <bt:String id="Group.Overview" DefaultValue="Übersicht" />
+        <bt:String id="Btn.Details" DefaultValue="Details" />
+        <bt:String id="Group.Finance" DefaultValue="Financials" />
+        <bt:String id="Group.People" DefaultValue="People" />
+        <bt:String id="Group.Publications" DefaultValue="Publications" />
+        <bt:String id="Group.Ownership" DefaultValue="Ownership" />
+        <bt:String id="Group.AI" DefaultValue="AI" />
+        <bt:String id="Group.Contact" DefaultValue="Support" />
+        <bt:String id="Btn.Email" DefaultValue="Support" />
+        <bt:String id="Btn.F1" DefaultValue="KPI" />
+        <bt:String id="Btn.F2" DefaultValue="Balance" />
+        <bt:String id="Btn.F3" DefaultValue="P&amp;L" />
+        <bt:String id="Btn.F6" DefaultValue="People" />
+        <bt:String id="Btn.F7" DefaultValue="Publ." />
+        <bt:String id="Btn.F8" DefaultValue="News" />
+        <bt:String id="Btn.F9" DefaultValue="Insolv." />
+        <bt:String id="Btn.F10" DefaultValue="Owners" />
+        <bt:String id="Btn.F11" DefaultValue="UBOs" />
+        <bt:String id="Btn.F12" DefaultValue="Stakes" />
+        <bt:String id="Btn.F13" DefaultValue="Website" />
+        <bt:String id="GetStarted.Title" DefaultValue="Gordon" />
+      </bt:ShortStrings>
+      <bt:LongStrings>
+        <bt:String id="Tip.Detect" DefaultValue="Tabelle markieren: erkennt die Spalten und füllt Firmenname, Revenue, EBITDA, Beschreibung und Homepage." />
+        <bt:String id="Tip.Details" DefaultValue="Unternehmens-Stammdaten: Adresse, Kontakt, Website, Unternehmensgegenstand, Branche und Register." />
+        <bt:String id="Tip.F1" DefaultValue="financial_kpi · 1 Credit — jährliche Finanzkennzahlen abrufen." />
+        <bt:String id="Tip.F2" DefaultValue="balance_sheet_accounts · 3 Credits — hierarchische Bilanzdaten abrufen." />
+        <bt:String id="Tip.F3" DefaultValue="profit_and_loss_account · 3 Credits — GuV-Aufstellungen abrufen." />
+        <bt:String id="Tip.F6" DefaultValue="related_persons · 2 Credits — Geschäftsführer, Vorstände und Rollen abrufen." />
+        <bt:String id="Tip.F7" DefaultValue="publications · 1 Credit — Handelsregisterveröffentlichungen abrufen." />
+        <bt:String id="Tip.F8" DefaultValue="news · 10 Credits — Nachrichtenartikel abrufen." />
+        <bt:String id="Tip.F9" DefaultValue="insolvency_publications · 1 Credit — Insolvenzveröffentlichungen abrufen." />
+        <bt:String id="Tip.F10" DefaultValue="shareholders · Beta · 5 Credits — Gesellschafterliste abrufen." />
+        <bt:String id="Tip.F11" DefaultValue="ubos · Beta · 10 Credits — wirtschaftlich Berechtigte abrufen." />
+        <bt:String id="Tip.F12" DefaultValue="shareholdings · Beta · 5 Credits — Beteiligungen abrufen." />
+        <bt:String id="Tip.F13" DefaultValue="website_content · AI · 0 Credits — Website-Inhalte als Markdown abrufen." />
+        <bt:String id="Tip.Email" DefaultValue="Support kontaktieren – öffnet dein Standard-Mailprogramm." />
+        <bt:String id="GetStarted.Description" DefaultValue="Unternehmensdaten auf Knopfdruck – direkt in Excel." />
+      </bt:LongStrings>
+    </Resources>
+  </VersionOverrides>
+</OfficeApp>
